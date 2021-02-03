@@ -1,0 +1,29 @@
+<div class="banner">
+  <div class="container text-center justify-content-center align-middle">
+    <h1 class="font-weight-bold">EQUIPAMENTOS</h1>
+  </div>
+</div>
+<div class="container pb-3">
+  <h1 class="font-weight-bold text-center p-3 h1">Escolha sua babá</h1>
+  <div class="filtro">
+    <%= form_tag sensors_path, method: :get, class: 'form-horizontal d-flex justify-content-start vertical-align-center' do %>
+      <%= select_tag :situation, options_from_collection_for_select(@situations, "id", "status"), include_blank: "All",
+        class: "form-control w-25"
+      %>
+      <%= select_tag :place, options_from_collection_for_select(@places, "id", "place"), include_blank: "All",
+        class: "form-control w-25"
+      %>
+      <%= input_tag :item, class: "form-control w-25" %>
+      <%= input_tag :subitem, class: "form-control w-25" %>
+      <%= select_tag :query, raw("<option>Data de Aquisição</option><option>Data de Calibração</option>"),
+        class: "form-control w-25"
+      %>
+      <%= submit_tag("Procurar", class: "btn-filter ml-2") %>
+    <% end %>
+  </div>
+</div>
+
+<div class="text-center m-4">
+  <%= link_to "Nova Busca", filter_path, class: "btn-filter p-2" %>
+</div>
+
