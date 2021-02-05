@@ -1,9 +1,9 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon align-items-center fixed-top">
   <%= link_to sensors_path, class: "navbar-brand" do %>
-    <%= image_tag "logo.png", class: "image" %>
+    <%= image_tag "", class: "image" %>
   <% end %>
   <div class="d-flex justify-content-left align-items-center">
-    <form id="form_id" class="form-inline my-2 my-lg-0" action=<%= cocktails_path %> method="get">
+    <form id="form_id" class="form-inline my-2 my-lg-0" action=<%= sensors_path %> method="get">
       <input class="form-control mr-sm-2 input" name="query" type="search" placeholder="Search" aria-label="Search" value="<%= params[:query] %>">
       <button class="btn btn-outline-success my-2 my-sm-0 button" type="submit">Search</button>
     </form>

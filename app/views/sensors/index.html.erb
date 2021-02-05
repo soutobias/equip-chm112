@@ -1,29 +1,92 @@
-<div class="banner">
+<div class="banner1">
   <div class="container text-center justify-content-center align-middle">
     <h1 class="font-weight-bold">EQUIPAMENTOS</h1>
   </div>
 </div>
-<div class="container pb-3">
-  <h1 class="font-weight-bold text-center p-3 h1">Escolha sua babá</h1>
+<div class="m-5">
   <div class="filtro">
+    <h1 class="font-weight-bold text-center p-3 h1">DEFINIR PARÂMETROS DE BUSCA</h1>
     <%= form_tag sensors_path, method: :get, class: 'form-horizontal d-flex justify-content-start vertical-align-center' do %>
-      <%= select_tag :situation, options_from_collection_for_select(@situations, "id", "status"), include_blank: "All",
+      <%= select_tag :situation, options_from_collection_for_select(@situations, "id", "status"), include_blank: "",
         class: "form-control w-25"
       %>
-      <%= select_tag :place, options_from_collection_for_select(@places, "id", "place"), include_blank: "All",
+      <%= select_tag :place, options_from_collection_for_select(@places, "id", "place"), include_blank: "",
         class: "form-control w-25"
       %>
-      <%= input_tag :item, class: "form-control w-25" %>
-      <%= input_tag :subitem, class: "form-control w-25" %>
-      <%= select_tag :query, raw("<option>Data de Aquisição</option><option>Data de Calibração</option>"),
+      <%= select_tag :item, options_from_collection_for_select(@items, "id", "item"), include_blank: "",
         class: "form-control w-25"
       %>
+      <%= select_tag :item_type, options_from_collection_for_select(@item_types, "id", "item_type"), include_blank: "",
+        class: "form-control w-25"
+      %>
+      <%= date_field_tag :acquisition_date, class: "form-control w-25" %>
+      <%= date_field_tag :calibration_date, class: "form-control w-25" %>
+      <%= date_field_tag :maintenance_date, class: "form-control w-25" %>
       <%= submit_tag("Procurar", class: "btn-filter ml-2") %>
     <% end %>
+  </div>
+  <div class="results">
+    <h1>LISTA DE SENSORES</h1>
+    <table class="rwd-table">
+      <tr>
+        <th><%= link_to "Id", :sort => "id"%> </th>
+        <th><%= link_to "Item", :sort => "items.item"%> </th>
+        <th><%= link_to "Subitem", :sort => "item_types.item_type"%> </th>
+        <th><%= link_to "Número de Série", :sort => "serial_number"%> </th>
+        <th><%= link_to "Programa", :sort => "owner"%> </th>
+        <th><%= link_to "Número de Registro", :sort => "register_number"%> </th>
+        <th><%= link_to "Modelo", :sort => "model"%> </th>
+        <th><%= link_to "Fabricante", :sort => "manufacturer"%> </th>
+        <th><%= link_to "Local", :sort => "places.place"%> </th>
+        <th><%= link_to "Situação", :sort => "situations.status"%> </th>
+        <th><%= link_to "Data de Aquisição", :sort => "acquisition_date"%> </th>
+        <th><%= link_to "Data de Manutenção", :sort => "maintenance_date"%> </th>
+        <th><%= link_to "Data de Calibração", :sort => "calibration_date"%> </th>
+        <th>Ações</th>
+
+      </tr>
+      <% @sensors.each do |sensor| %>
+        <tr>
+          <td data-th="Id"><%=sensor.id%></td>
+          <td data-th="Item"><%=sensor.item.item %></td>
+          <td data-th="Subitem"><%=sensor.item_type.item_type %></td>
+          <td data-th="Número de Série"><%=sensor.serial_number %></td>
+          <td data-th="Programa"><%=sensor.owner %></td>
+          <td data-th="Número de Registro"><%=sensor.register_number %></td>
+          <td data-th="Modelo"><%=sensor.model %></td>
+          <td data-th="Fabricante"><%=sensor.manufacturer %></td>
+          <td data-th="Local"><%=sensor.place.place %></td>
+          <td data-th="Situação"><%=sensor.situation.status %></td>
+          <% if sensor.acquisition_date %>
+            <td data-th="Data de Aquisição"><%=sensor.acquisition_date.strftime('%d/%m/%Y') %></td>
+          <% else %>
+            <td data-th="Data de Aquisição"><%=sensor.acquisition_date %></td>
+          <% end %>
+          <% if sensor.maintenance_date %>
+            <td data-th="Data de Manutenção"><%=sensor.maintenance_date.strftime('%d/%m/%Y') %></td>
+          <% else %>
+            <td data-th="Data de Manutenção"><%=sensor.maintenance_date %></td>
+          <% end %>
+          <% if sensor.calibration_date %>
+            <td data-th="Data de Calibração"><%=sensor.calibration_date.strftime('%d/%m/%Y') %></td>
+          <% else %>
+            <td data-th="Data de Calibração"><%=sensor.calibration_date %></td>
+          <% end %>
+          <td>
+            <%= link_to edit_sensor_path(sensor), class: "btn text-primary p-0" do %>
+              <i class="far fa-eye"></i>
+            <% end %>
+            <%= link_to sensor_path(sensor), class: "btn text-primary p-0" do %>
+              <i class="far fa-edit"></i>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
   </div>
 </div>
 
 <div class="text-center m-4">
-  <%= link_to "Nova Busca", filter_path, class: "btn-filter p-2" %>
+  <%= link_to "Nova Busca", sensors_path, class: "btn-filter p-2" %>
 </div>
 

@@ -91,5 +91,5 @@ external: # database you also want to connect to
   pool: 5
   timeout: 5000
   host: remobs-qc.postgres.uhserver.com
-  username: remobs_equip
+  username: equip_remobs
   password: <%= ENV['REMOBS_QC_DB_PASSWORD'] %>
