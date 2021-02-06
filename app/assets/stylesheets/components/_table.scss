@@ -1,55 +1,108 @@
-
-// More practical CSS...
-// using mobile first method (IE8,7 requires respond.js polyfill https://github.com/scottjehl/Respond)
-
-$breakpoint-alpha: 480px; // adjust to your needs
-
-.rwd-table {
-  td {
-    border-left: 1px solid rgba(50,50,50, 0.3);
-    border-top: 1px solid rgba(50,50,50, 0.3);
-    border-down: 1px solid rgba(50,50,50, 0.3);
-
-    &:before {
-      content: attr(data-th)": "; // who knew you could do this? The internet, that's who.
-      font-weight: bold;
-      // optional stuff to make it look nicer
-      display: inline-block;
-      // end options
-      @media (min-width: $breakpoint-alpha) {
-        display: none;
-      }
-    }
-  }
-  th {
-    border-right: 1px solid rgba(50,50,50, 1);
-    border-left: 1px solid rgba(50,50,50, 1);
-    border-top: 1px solid rgba(50,50,50, 1);
-    border-down: 1px solid rgba(50,50,50, 1);
-
-    a {
-      text-decoration: none;
-    }
-
-  }
-
-  th, td {
-    text-align: left;
-  }
-
+body {
+  background: #fafafa url(https://jackrugile.com/images/misc/noise-diagonal.png);
+  color: #444;
+  font: 100%/10px 'Helvetica Neue', helvetica, arial, sans-serif;
+  text-shadow: 0 1px 0 #fff;
 }
 
-// presentational styling
+table {
+  background: #f5f5f5;
+  border-collapse: separate;
+  box-shadow: inset 0 1px 0 #fff;
+  font-size: 12px;
+  line-height: 24px;
+  margin: 30px auto;
+  text-align: left;
+  width: 800px;
+}
 
-@import 'https://fonts.googleapis.com/css?family=Montserrat:300,400,700';
-
-.rwd-table {
-  font-family: Montserrat, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  border-radius: .4em;
-  overflow: hidden;
-  tr {
-    border-color: lighten(#34495E, 10%);
+th {
+  background: url(https://jackrugile.com/images/misc/noise-diagonal.png), linear-gradient(#777, #444);
+  border-left: 1px solid #555;
+  border-right: 1px solid #777;
+  border-top: 1px solid #555;
+  border-bottom: 1px solid #333;
+  box-shadow: inset 0 1px 0 #999;
+  color: #fff;
+  font-weight: bold;
+  padding: 10px 15px;
+  position: relative;
+  text-shadow: 0 1px 0 #000;
+  text-align: center;
+  a {
+    color: #fff;
+    :hover {
+      text-decoration: none;
+    }
   }
+}
+
+th:after {
+  background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,.08));
+  content: '';
+  display: block;
+  height: 25%;
+  left: 0;
+  margin: 1px 0 0 0;
+  position: absolute;
+  top: 25%;
+  width: 100%;
+}
+
+th:first-child {
+  border-left: 1px solid #777;
+  box-shadow: inset 1px 1px 0 #999;
+}
+
+th:last-child {
+  box-shadow: inset -1px 1px 0 #999;
+}
+
+td {
+  border-right: 1px solid #fff;
+  border-left: 1px solid #e8e8e8;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #e8e8e8;
+  padding: 10px 15px;
+  position: relative;
+  transition: all 100ms;
+}
+
+td:first-child {
+  box-shadow: inset 1px 0 0 #fff;
+}
+
+td:last-child {
+  border-right: 1px solid #e8e8e8;
+  box-shadow: inset -1px 0 0 #fff;
+}
+
+tr {
+  background: url(https://jackrugile.com/images/misc/noise-diagonal.png);
+}
+
+tr:nth-child(odd) td {
+  background: #f1f1f1 url(https://jackrugile.com/images/misc/noise-diagonal.png);
+}
+
+tr:last-of-type td {
+  box-shadow: inset 0 -1px 0 #fff;
+}
+
+tr:last-of-type td:first-child {
+  box-shadow: inset 1px -1px 0 #fff;
+}
+
+tr:last-of-type td:last-child {
+  box-shadow: inset -1px -1px 0 #fff;
+}
+
+tbody:hover td {
+  color: transparent;
+  text-shadow: 0 0 0px #aaa;
+}
+
+tbody:hover tr:hover td {
+  color: #444;
+  text-shadow: 0 1px 0 #fff;
 }

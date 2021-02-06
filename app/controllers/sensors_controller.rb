@@ -3,38 +3,55 @@ class SensorsController < ApplicationController
   before_action :set_sensor, only: [:show, :edit, :update, :destroy]
 
   def index
-    # if params[:commit].present?
-    #   @price = params[:item]
-    #   @commit = params[:subitem]
-    #   @skill = params[:situation]
-    #   @experience = params[:place]
-    #   query = ""
-    #   if params[:item] != ""
-    #     query += "item = #{params[:price].to_i} AND "
-    #   end
-    #   if params[:experience] != ""
-    #     query += "experience >= #{params[:experience].to_i} AND "
-    #   end
-    #   if params[:skill] != "Selecione uma habilidade"
-    #     query += "skill = '#{params[:skill]}' AND "
-    #   end
-    #   if query != ""
-    #     query = query[0..-5]
-    #     @sensors = policy_scope(Sensor).where(query).order(order_param)
-    #   else
-    #     @sensors = policy_scope(Sensor).order(order_param)
-    #   end
-    # else
-    #   @sensors = policy_scope(Sensor).order(order_param)
-    # end
-    if params[:sort].present?
-      @sensors = policy_scope(Sensor).includes(:situation,
-        :place, :item, :item_type).order(params[:sort])
+    if params[:commit].present?
+      @commit = params[:commit]
+      @situation_id = params[:situation]
+      @place_id = params[:place]
+      @item_id = params[:item]
+      @item_type_id = params[:item_type]
+      @acquisition_date = params[:acquisition_date]
+      @calibration_date = params[:calibration_date]
+      @maintenance_date = params[:maintenance_date]
+      query = ""
+      if @situation_id != ""
+        query += "situation_id = #{@situation_id.to_i} AND "
+      end
+      if @place_id != ""
+        query += "place_id = #{@place_id.to_i} AND "
+      end
+      if @item_id != ""
+        query += "item_id = '#{@item_id}' AND "
+      end
+      if @item_type_id != ""
+        query += "item_type_id = '#{@item_type_id}' AND "
+      end
+      if @acquisition_date != ""
+        query += "acquisition_date >= '#{@acquisition_date}' AND "
+      end
+      if @calibration_date != ""
+        query += "calibration_date >= '#{@calibration_date}' AND "
+      end
+      if @maintenance_date != ""
+        query += "maintenance_date >= '#{@maintenance_date}' AND "
+      end
+      if query != ""
+        query = query[0..-5]
+        @x = 1
+        if params[:sort].present?
+          @sensors = policy_scope(Sensor).includes(:situation,
+            :place, :item, :item_type).where(query).order(params[:sort])
+        else
+          @sensors = policy_scope(Sensor).includes(:situation, :place, :item,
+            :item_type).where(query).order(:id)
+        end
+      else
+        @sensors = policy_scope(Sensor)
+        @x = 0
+      end
     else
-      @sensors = policy_scope(Sensor).includes(:situation, :place, :item, :item_type)
-      # @sensors = policy_scope(Sensor)
+      @sensors = policy_scope(Sensor)
+      @x = 0
     end
-
     @situations = Situation.all
     @places = Place.all
     @items = Item.all
