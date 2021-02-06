@@ -74,10 +74,10 @@
           <% end %>
           <td>
             <%= link_to edit_sensor_path(sensor), class: "btn text-primary p-0" do %>
-              <i class="far fa-eye"></i>
+              <i class="far fa-edit"></i>
             <% end %>
             <%= link_to sensor_path(sensor), class: "btn text-primary p-0" do %>
-              <i class="far fa-edit"></i>
+              <i class="far fa-eye"></i>
             <% end %>
           </td>
         </tr>
@@ -85,8 +85,3 @@
     </table>
   </div>
 </div>
-
-<div class="text-center m-4">
-  <%= link_to "Nova Busca", sensors_path, class: "btn-filter p-2" %>
-</div>
-

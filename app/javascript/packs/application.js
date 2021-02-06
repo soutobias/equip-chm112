@@ -27,8 +27,11 @@ import "bootstrap";
 
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
+import { initDate } from '../plugins/init_datepicker';
+
 
 document.addEventListener('turbolinks:load', () => {
+  initDate();
   // Call your functions here, e.g:
   // initSelect2();
 });

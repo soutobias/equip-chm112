@@ -1,0 +1,41 @@
+<div class="banner1">
+  <div class="container text-center justify-content-center align-middle">
+    <h1 class="font-weight-bold">EQUIPAMENTOS</h1>
+  </div>
+</div>
+<div class="m-5">
+  <h1><%= @sensor.item.item %> - <%= @sensor.item_type.item_type %></h1>
+  <div class="results d-flex">
+    <%= simple_form_for @sensor do |f| %>
+      <div>
+        <% if @sensor.photo.attached? %>
+          <%= cl_image_tag @sensor.photo.key, class: "h-100 photo" %>
+        <% else %>
+          <div class="h-100 photo">Não há foto</div>
+        <% end %>
+        <%= f.input :photo, as: :file %>
+      </div>
+      <div>
+        <%= f.input :item, collection: @items, label_method: :item, value_method: :id, label: "Item", include_blank: false, selected: @sensor.item.id %>
+        <%= f.input :item_type, collection: @item_types, label_method: :item_type, value_method: :id, label: "Subitem", include_blank: false, selected: @sensor.item_type.id %>
+        <%= f.input :serial_number, label: 'Número de Série:' %>
+        <%= f.input :owner, label: 'Programa:' %>
+        <%= f.input :register_number, label: 'Número de Registro:' %>
+        <%= f.input :model, label: 'Modelo:' %>
+        <%= f.input :manufacturer, label: 'Fabricante:' %>
+        <%= f.input :place, collection: @places, label_method: :place, value_method: :id, label: "Local", include_blank: false, selected: @sensor.place.id %>
+        <%= f.input :situation, collection: @situations, label_method: :status, value_method: :id, label: "Situação", include_blank: false, selected: @sensor.situation.id %>
+        <%= f.input :acquisition_date , as: :string, required: true, input_html: {class: "datepicker"} %>
+        <%= f.input :maintenance_date, as: :string, required: true, input_html: {class: "datepicker"} %>
+        <%= f.input :calibration_date, as: :string, required: true, input_html: {class: "datepicker"} %>
+        <%= f.button :submit, class: "btn btn-primary"%>
+        <%= link_to "Voltar", sensor_path(@sensor), class: "btn btn-primary"%>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="text-center m-4">
+  <%= link_to "Nova Busca", sensors_path, class: "btn-filter p-2" %>
+</div>
+

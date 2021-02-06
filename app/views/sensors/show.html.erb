@@ -1,0 +1,48 @@
+<div class="banner1">
+  <div class="container text-center justify-content-center align-middle">
+    <h1 class="font-weight-bold">EQUIPAMENTOS</h1>
+  </div>
+</div>
+<div class="m-5">
+  <h1><%= @sensor.item.item %> - <%= @sensor.item_type.item_type %></h1>
+  <div class="results d-flex">
+    <div>
+      <% if @sensor.photo.attached? %>
+        <%= cl_image_tag @sensor.photo.key, class: "h-100 photo" %>
+      <% else %>
+        <div class="h-100 photo">Não há foto</div>
+      <% end %>
+    </div>
+    <div>
+      <p>Item: <%=@sensor.item.item %></p>
+      <p>Subitem: <%=@sensor.item_type.item_type %></p>
+      <p>Número de Série: <%=@sensor.serial_number %></p>
+      <p>Programa: <%=@sensor.owner %></p>
+      <p>Número de Registro: <%=@sensor.register_number %></p>
+      <p>Modelo: <%=@sensor.model %></p>
+      <p>Fabricante: <%=@sensor.manufacturer %></p>
+      <p>Local: <%=@sensor.place.place %></p>
+      <p>Situação: <%=@sensor.situation.status %></p>
+      <% if @sensor.acquisition_date %>
+        <p>Data de Aquisição: <%=@sensor.acquisition_date.strftime('%d/%m/%Y') %></p>
+      <% else %>
+        <p>Data de Aquisição: <%=@sensor.acquisition_date %></p>
+      <% end %>
+      <% if @sensor.maintenance_date %>
+        <p>Data de Manutenção: <%=@sensor.maintenance_date.strftime('%d/%m/%Y') %></p>
+      <% else %>
+        <p>Data de Manutenção: <%=@sensor.maintenance_date %></p>
+      <% end %>
+      <% if @sensor.calibration_date %>
+        <p>Data de Calibração: <%=@sensor.calibration_date.strftime('%d/%m/%Y') %></p>
+      <% else %>
+        <p>Data de Calibração: <%=@sensor.calibration_date %></p>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="text-center m-4">
+  <%= link_to "Nova Busca", sensors_path, class: "btn-filter p-2" %>
+</div>
+

@@ -60,6 +60,10 @@ class SensorsController < ApplicationController
   end
 
   def edit
+    @situations = Situation.all
+    @places = Place.all
+    @items = Item.all
+    @item_types = ItemType.all
   end
 
   def update
@@ -80,10 +84,11 @@ class SensorsController < ApplicationController
   end
 
   def sensor_params
+
     params.require(:sensor).permit(
-      :item, :item_type, :serial_number, :owner, :register_number, :model,
-      :manufacturer, :place_id, :situation, :acquisition_date, :maintenance_date,
-      :calibration_date, :observation
+      :item_id, :item_type_id, :serial_number, :owner, :register_number, :model,
+      :manufacturer, :place_id, :situation_id, :acquisition_date, :maintenance_date,
+      :calibration_date, :observation, :photo
       )
   end
 end
