@@ -1,30 +1,26 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon align-items-center fixed-top">
   <%= link_to sensors_path, class: "navbar-brand" do %>
-    <%= image_tag "", class: "image" %>
+    <%= image_tag "logo.png", class: "image" %>
   <% end %>
   <div class="d-flex justify-content-left align-items-center">
-    <form id="form_id" class="form-inline my-2 my-lg-0" action=<%= sensors_path %> method="get">
-      <input class="form-control mr-sm-2 input" name="query" type="search" placeholder="Search" aria-label="Search" value="<%= params[:query] %>">
-      <button class="btn btn-outline-success my-2 my-sm-0 button" type="submit">Search</button>
-    </form>
-    <%= link_to "Add a New Sensor", new_sensor_path, class: 'btn btn-outline-primary align-middle h-75 ml-2 button'%>
-  </div>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <% if user_signed_in? %>
-        <li class="nav-item dropdown">
-          <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <%= link_to "Action", "#", class: "dropdown-item" %>
-            <%= link_to "Another action", "#", class: "dropdown-item" %>
-            <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
-          </div>
-        </li>
-      <% else %>
-        <li class="nav-item">
-          <%= link_to "Login", new_user_session_path, class: "nav-link" %>
-        </li>
-      <% end %>
-    </ul>
+    <% if user_signed_in? %>
+      <%= link_to "ADICIONAR UM NOVO SENSOR", new_sensor_path, class: 'btn btn-outline-primary align-middle h-75 mr-4 button'%>
+    <% end %>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <% if user_signed_in? %>
+          <li class="nav-item dropdown">
+            <%= image_tag "https://upload.wikimedia.org/wikipedia/commons/c/c1/Navy-personnel-icon.png", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+              <%= link_to "Sair", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+            </div>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "Logar", new_user_session_path, class: "btn btn-primary nav-link" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
   </div>
 </div>

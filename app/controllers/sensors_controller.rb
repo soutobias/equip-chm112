@@ -59,8 +59,12 @@ class SensorsController < ApplicationController
   end
 
   def new
+    @sensor = Sensor.new
+    @situations = Situation.all
+    @places = Place.all
+    @items = Item.all
+    @item_types = ItemType.all
     authorize @sensor
-    render :show
   end
 
   def create
@@ -105,7 +109,7 @@ class SensorsController < ApplicationController
     params.require(:sensor).permit(
       :item_id, :item_type_id, :serial_number, :owner, :register_number, :model,
       :manufacturer, :place_id, :situation_id, :acquisition_date, :maintenance_date,
-      :calibration_date, :observation, :photo
+      :calibration_date, :observation, :photo, files: []
       )
   end
 end

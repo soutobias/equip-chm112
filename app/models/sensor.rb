@@ -13,7 +13,7 @@ class Sensor < ActiveRecord::Base
   has_one_attached :photo
   # validates :photo, attached: true, content_type: ['image/png', 'image/jpg', 'image/jpeg']
 
-  has_one_attached :file
+  has_many_attached :files
   # validates :file, attached: true, content_type: ['application/pdf', 'image/png', 'image/jpg', 'image/jpeg']
 
   has_many :historic_sensors

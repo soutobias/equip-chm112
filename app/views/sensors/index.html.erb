@@ -54,28 +54,26 @@
       <div class="col-3 w-100 p-3">
         <div class="d-flex justify-content-around">
           <p class="m-3">AQUISIÇÃO: </p>
-          <%= date_field_tag :acquisition_date, @acquisition_date %>
+          <%= date_field_tag :acquisition_date, @acquisition_date, class: "form-control p-3"  %>
         </div>
       </div>
       <div class="col-3 w-100 p-3">
         <div class="d-flex vertical-align-center justify-content-around">
           <p class="m-3">CALIBRAÇÃO: </p>
-          <%= date_field_tag :calibration_date, @calibration_date %>
+          <%= date_field_tag :calibration_date, @calibration_date, class: "form-control p-3" %>
         </div>
       </div>
       <div class="col-3 w-100 p-3">
         <div class="d-flex justify-content-around">
           <p class="m-3">MANUTENÇÃO: </p>
-          <%= date_field_tag :maintenance_date, @maintenance_date %>
+          <%= date_field_tag :maintenance_date, @maintenance_date, class: "form-control p-3" %>
         </div>
       </div>
-      <div class="col-3 w-100 p-3">
+      <div class="col-3 w-100 p-3 d-flex">
         <%= submit_tag("Procurar", class: "btn btn-outline-success p-3 w-75 button") %>
+        <%= link_to "Limpar busca", root_path, class: 'btn btn-outline-primary align-middle h-75 ml-2 button' %>
       </div>
     <% end %>
-    <div class="col-3 w-100 p-3">
-      <%= submit_tag("Procurar", class: "btn btn-outline-success p-3 w-75 button") %>
-    </div>
   </div>
   <div class="results">
     <h1 class='font-weight-bold text-center p-3 h1'>LISTA DE SENSORES</h1>
@@ -84,7 +82,7 @@
         <th><%= link_to "ID", :sort => "id"%> </th>
         <th><%= link_to "ITEM", :sort => "items.item"%> </th>
         <th><%= link_to "SUBITEM", :sort => "item_types.item_type"%> </th>
-        <th><%= link_to "NÚMERO DE SÉRIE", :sort => "serial_number"%> </th>
+        <th><%= link_to "N° DE SÉRIE", :sort => "serial_number"%> </th>
         <th><%= link_to "PROGRAMA", :sort => "owner"%> </th>
         <th><%= link_to "N° REGISTRO", :sort => "register_number"%> </th>
         <th><%= link_to "MODELO", :sort => "model"%> </th>
@@ -94,8 +92,7 @@
         <th><%= link_to "DATA DE AQUISIÇÃO", :sort => "acquisition_date"%> </th>
         <th><%= link_to "DATA DE MANUTENÇÃO", :sort => "maintenance_date"%> </th>
         <th><%= link_to "DATA DE CALIBRAÇÃO", :sort => "calibration_date"%> </th>
-        <th>Ações</th>
-
+        <th>AÇÕES</th>
       </tr>
       <% if @x == 1 %>
         <% @sensors.each do |sensor| %>
@@ -138,7 +135,7 @@
         </table>
       <% else %>
         </table>
-        <h2 class='font-weight-bold text-center p-3 h1'>FAÇA UMA BUSCA</h2>
+        <h2 class='font-italic text-center p-3 h1'>FAÇA UMA BUSCA</h2>
       <% end %>
   </div>
 </div>
