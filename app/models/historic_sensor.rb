@@ -1,6 +1,6 @@
 class HistoricSensor < ActiveRecord::Base
   establish_connection :external
-  belongs to :sensor
+  belongs_to :sensor
   validates :sensor, presence: true
   belongs_to :place
   validates :place, presence: true
