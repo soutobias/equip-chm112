@@ -24,4 +24,7 @@ class SensorPolicy < ApplicationPolicy
     return true
   end
 
+  def download?
+    return true
+  end
 end

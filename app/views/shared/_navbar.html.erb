@@ -2,22 +2,29 @@
   <%= link_to sensors_path, class: "navbar-brand" do %>
     <%= image_tag "logo.png", class: "image" %>
   <% end %>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
   <div class="d-flex justify-content-left align-items-center">
     <% if user_signed_in? %>
-      <%= link_to "ADICIONAR UM NOVO SENSOR", new_sensor_path, class: 'btn btn-outline-primary align-middle h-75 mr-4 button'%>
+      <%= link_to new_sensor_path, class: 'text-primary align-middle h-75 button mr-3 btn-filter' do %>
+        <i class="fas fa-plus-square"></i>
+      <% end %>
     <% end %>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
+      <ul class="navbar-nav">
         <% if user_signed_in? %>
           <li class="nav-item dropdown">
-            <%= image_tag "https://upload.wikimedia.org/wikipedia/commons/c/c1/Navy-personnel-icon.png", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+            <%= image_tag "https://upload.wikimedia.org/wikipedia/commons/c/c1/Navy-personnel-icon.png", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" } %>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
               <%= link_to "Sair", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
             </div>
           </li>
         <% else %>
           <li class="nav-item">
-            <%= link_to "Logar", new_user_session_path, class: "btn btn-primary nav-link" %>
+            <%= link_to "Logar", new_user_session_path, class: "btn btn-primary" %>
           </li>
         <% end %>
       </ul>

@@ -19,6 +19,41 @@
 
 .center {
   padding-top: 50px;
+  padding-bottom: 10px;
   font-weight: bold;
   font-size: 30px;
+}
+
+@media (max-width: 960px) {
+  .p-show{
+    font-size: 20px;
+  }
+  .p-type{
+    font-size: 16px;
+  }
+}
+@media (max-width: 720px) {
+  .p-show{
+    font-size: 18px;
+  }
+  .p-type{
+    font-size: 15px;
+  }
+}
+@media (max-width: 540px) {
+  .p-show{
+    font-size: 17px;
+  }
+  .p-type{
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .p-show{
+    font-size: 11px;
+  }
+  .p-type{
+    font-size: 11px;
+  }
 }

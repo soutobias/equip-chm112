@@ -6,7 +6,7 @@
 <div class="m-5">
   <h1 class="font-weight-bold text-center p-3 h1"><%= @sensor.item.item.upcase %> - <%= @sensor.item_type.item_type %></h1>
   <%= simple_form_for @sensor, html: { class: "results row justify-content-around"} do |f| %>
-    <div class='col-4'>
+    <div class='col-12 col-md-4 mb-2'>
       <%= f.input :photo, label: "ALTERAR/INSERIR IMAGEM:", as: :file %>
       <% if @sensor.photo.attached? %>
         <%= cl_image_tag @sensor.photo.key, class: "h-100 photo" %>
@@ -14,7 +14,7 @@
         <div class="photo text-center align-middle center"><strong>NÃO HÁ FOTO</strong></div>
       <% end %>
     </div>
-    <div class='col-7'>
+    <div class='col-12 col-md-7 mt-5 pt-1'>
       <%= f.input :item, collection: @items, label_method: :item, value_method: :id, label: "ITEM", include_blank: false, selected: @sensor.item.id %>
       <%= f.input :item_type, collection: @item_types, label_method: :item_type, value_method: :id, label: "SUBITEM", include_blank: false, selected: @sensor.item_type.id %>
       <%= f.input :serial_number, label: 'N° DE SÉRIE:' %>

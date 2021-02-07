@@ -6,19 +6,19 @@
 <div class="m-5">
   <h1 class="font-weight-bold text-center p-3 h1"><%= @sensor.item.item.upcase %> - <%= @sensor.item_type.item_type %></h1>
   <div class="results row justify-content-around">
-    <div class='col-4'>
+    <div class='col-12 col-md-4 mb-2'>
       <% if @sensor.photo.attached? %>
         <%= cl_image_tag @sensor.photo.key, class: "h-100 photo" %>
       <% else %>
         <div class="h-100 photo text-center align-middle center"><strong>NÃO HÁ FOTO</strong></div>
       <% end %>
     </div>
-    <div class='col-2'>
+    <div class='col-4 col-md-2'>
       <p class='p-type p-1'>ITEM:</p>
       <p class='p-type p-1'>SUBITEM:</p>
-      <p class='p-type p-1'>NÚMERO DE SÉRIE:</p>
+      <p class='p-type p-1'>N°SÉRIE:</p>
       <p class='p-type p-1'>PROGRAMA:</p>
-      <p class='p-type p-1'>N° DE REGISTRO:</p>
+      <p class='p-type p-1'>N°REGISTRO:</p>
       <p class='p-type p-1'>MODELO:</p>
       <p class='p-type p-1'>FABRICANTE:</p>
       <p class='p-type p-1'>LOCAL:</p>
@@ -30,7 +30,7 @@
       <p class='p-type p-1'>OBSERVAÇÃO:</p>
 
     </div>
-    <div class='col-5'>
+    <div class='col-8 col-md-5'>
       <p class='p-show p-1'><%=@sensor.item.item.upcase %></p>
       <p class='p-show p-1'><%=@sensor.item_type.item_type.upcase %></p>
       <p class='p-show p-1'><%=@sensor.serial_number %></p>
@@ -57,8 +57,10 @@
       <% end %>
       <% if @sensor.files.attached? %>
         <div class="d-flex">
-          <% @sensor.files.each do |file| %>
-            <%= link_to("Download", cl_private_download_url(file.name, :pdf, :attachment => true)) %>
+          <% @sensor.files.each_with_index do |file, idx| %>
+            <%= link_to file.service_url, download: "arquivo#{idx + 1}" do %>
+              <i class="fas fa-file-image pt-0 pl-1 pr-1 pb-2 p-show"></i>
+            <% end %>
           <% end %>
         </div>
       <% else %>
@@ -73,4 +75,3 @@
   <%= link_to "Nova Busca", sensors_path, class: "btn btn-outline-primary align-middle h-75 ml-2 button" %>
   <%= link_to "Editar", edit_sensor_path(@sensor), class: "btn btn-outline-danger align-middle h-75 ml-2 button" %>
 </div>
-
