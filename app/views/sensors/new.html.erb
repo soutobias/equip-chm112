@@ -6,11 +6,10 @@
 <div class="m-5">
   <h1 class="font-weight-bold text-center p-3 h1">ADICIONE UM NOVO SENSOR</h1>
   <%= simple_form_for @sensor, html: { class: "results row justify-content-around"} do |f| %>
-    <div class='col-4'>
-      <%= f.input :photo, label: "INSERIR IMAGEM:", as: :file %>
-      <div class="photo text-center align-middle center"><strong>NÃO HÁ FOTO</strong></div>
+    <div class='col-12 mb-2'>
+      <%= f.input :photo, label: "ALTERAR/INSERIR IMAGEM:", as: :file %>
     </div>
-    <div class='col-7'>
+    <div class='col-12'>
       <%= f.input :item, collection: @items, label_method: :item, value_method: :id, label: "ITEM", include_blank: '' %>
       <%= f.input :item_type, collection: @item_types, label_method: :item_type, value_method: :id, label: "SUBITEM", include_blank: '' %>
       <%= f.input :serial_number, label: 'N° DE SÉRIE:' %>
