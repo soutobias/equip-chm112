@@ -4,7 +4,7 @@
     <%= form_tag sensors_path, method: :get, class: 'w-100 form-horizontal row justify-content-around align-items-center vertical-align-center' do %>
       <div class="col-6 col-md-3 w-100 p-1">
         <% if @commit && @situation_id != ""%>
-          <%= select_tag :situation, options_from_collection_for_select(@situations, "id", "status"), selected: @situation_id,
+          <%= select_tag :situation, options_from_collection_for_select(@situations, "id", "status", @situation_id), include_blank: :false,
             class: "form-control"
           %>
         <% else %>
@@ -15,7 +15,7 @@
       </div>
       <div class="col-6 col-md-3 w-100 p-1">
         <% if @commit && @place_id != "" %>
-          <%= select_tag :place, options_from_collection_for_select(@places, "id", "place"), selected: @place_id,
+          <%= select_tag :place, options_from_collection_for_select(@places, "id", "place", @place_id), include_blank: :false,
             class: "form-control"
           %>
         <% else %>
@@ -26,7 +26,7 @@
       </div>
       <div class="col-6 col-md-3 w-100 p-1">
         <% if @commit && @item_id != "" %>
-          <%= select_tag :item, options_from_collection_for_select(@items, "id", "item"), include_blank: false, selected: @item_id,
+          <%= select_tag :item, options_from_collection_for_select(@items, "id", "item", @item_id), include_blank: false,
             class: "form-control"
           %>
         <% else %>
@@ -37,7 +37,7 @@
       </div>
       <div class="col-6 col-md-3 w-100 p-1">
         <% if @commit && @item_type_id != "" %>
-          <%= select_tag :item_type, options_from_collection_for_select(@item_types, "id", "item_type"), include_blank: false, selected: @item_type_id,
+          <%= select_tag :item_type, options_from_collection_for_select(@item_types, "id", "item_type", @item_type_id), include_blank: false,
             class: "form-control"
           %>
         <% else %>
@@ -175,14 +175,14 @@
             <% end %>
             <td data-th="MANUAL">
               <% if sensor.manual %>
-                <%= link_to sensor.manual, class: "btn text-primary p-0" do %>
+                <%= link_to sensor.manual, class: "btn text-primary p-0", target: :_blank do %>
                   <i class="far fa-file-pdf"></i>
                 <% end %>
               <% end %>
             </td>
             <td data-th="DATASHEET">
               <% if sensor.datasheet %>
-                <%= link_to sensor.datasheet, class: "btn text-primary p-0" do %>
+                <%= link_to sensor.datasheet, class: "btn text-primary p-0", target: :_blank do %>
                   <i class="far fa-file-pdf"></i>
                 <% end %>
               <% end %>

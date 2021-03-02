@@ -28,6 +28,7 @@
       <%= f.input :calibration_date, label: 'DATA DE CALIBRAÇÃO:', as: :string, required: true, input_html: {class: "datepicker"} %>
       <%= f.input :manual, label: 'MANUAL:' %>
       <%= f.input :datasheet, label: 'DATASHEET:' %>
+      <%= f.input :observation, label: 'OBSERVAÇÕES:' %>
       <%= f.input :files, label: "ALTERAR/INSERIR ARQUIVO:", as: :file, input_html: { multiple: true } %>
       <%= f.button :submit, "Atualizar Equipamento", class: "btn btn-outline-danger m-2"%>
       <%= link_to "Voltar", sensor_path(@sensor), class: "btn btn-outline-primary m-2"%>

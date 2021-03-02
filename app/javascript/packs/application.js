@@ -28,10 +28,12 @@ import "bootstrap";
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
 import { initDate } from '../plugins/init_datepicker';
+import { showHistoric } from '../components/init_historic';
 
 
 document.addEventListener('turbolinks:load', () => {
   initDate();
+  showHistoric();
   // Call your functions here, e.g:
   // initSelect2();
 });

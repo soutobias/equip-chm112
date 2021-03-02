@@ -13,76 +13,107 @@
         <div class="h-100 photo text-center align-middle center"><strong>NÃO HÁ FOTO</strong></div>
       <% end %>
     </div>
-    <div class='col-4 col-md-2'>
-      <p class='p-type p-1'>ITEM:</p>
-      <p class='p-type p-1'>SUBITEM:</p>
-      <p class='p-type p-1'>N°SÉRIE:</p>
-      <p class='p-type p-1'>PROGRAMA:</p>
-      <p class='p-type p-1'>N°REGISTRO:</p>
-      <p class='p-type p-1'>MODELO:</p>
-      <p class='p-type p-1'>FABRICANTE:</p>
-      <p class='p-type p-1'>LOCAL:</p>
-      <p class='p-type p-1'>SITUAÇÃO:</p>
-      <p class='p-type p-1'>AQUISIÇÃO:</p>
-      <p class='p-type p-1'>MANUTENÇÃO:</p>
-      <p class='p-type p-1'>CALIBRAÇÃO:</p>
-      <p class='p-type p-1'>MANUAL:</p>
-      <p class='p-type p-1'>DATASHEET:</p>
-      <p class='p-type p-1'>ARQUIVOS:</p>
-      <p class='p-type p-1'>OBSERVAÇÃO:</p>
-
-    </div>
-    <div class='col-8 col-md-5'>
-      <p class='p-show p-1'><%=@sensor.item_type.item.item.upcase %></p>
-      <p class='p-show p-1'><%=@sensor.item_type.item_type.upcase %></p>
-      <p class='p-show p-1'><%=@sensor.serial_number %></p>
-      <p class='p-show p-1'><%=@sensor.owner.upcase %></p>
-      <p class='p-show p-1'><%=@sensor.register_number %></p>
-      <p class='p-show p-1'><%=@sensor.model.upcase %></p>
-      <p class='p-show p-1'><%=@sensor.manufacturer.upcase %></p>
-      <p class='p-show p-1'><%=@sensor.place.place.upcase %></p>
-      <p class='p-show p-1'><%=@sensor.situation.status.upcase %></p>
-      <% if @sensor.acquisition_date %>
-        <p class='p-show p-1'><%=@sensor.acquisition_date.strftime('%d/%m/%Y') %></p>
-      <% else %>
-        <p class='p-show p-1'>--</p>
-      <% end %>
-      <% if @sensor.maintenance_date %>
-        <p class='p-show p-1'><%=@sensor.maintenance_date.strftime('%d/%m/%Y') %></p>
-      <% else %>
-        <p class='p-show p-1'>--</p>
-      <% end %>
-      <% if @sensor.calibration_date %>
-        <p class='p-show p-1'><%=@sensor.calibration_date.strftime('%d/%m/%Y') %></p>
-      <% else %>
-        <p class='p-show p-1'>--</p>
-      <% end %>
-      <p class='p-show p-1'>
-        <% if @sensor.manual %>
-          <%= link_to @sensor.manual, class: "btn text-primary p-0" do %>
-            <i class="far fa-file-pdf"></i>
+    <div class='col-12 col-md-8'>
+      <table class="w-100">
+        <tr>
+          <td class='p-type p-1'>ITEM:</td>
+          <td class='p-show p-1'><%=@sensor.item_type.item.item.upcase %></td>
+        </tr>
+        <tr>
+          <td class='p-type p-1'>SUBITEM:</td>
+          <td class='p-show p-1'><%=@sensor.item_type.item_type.upcase %></td>
+        </tr>
+        <tr>
+          <td class='p-type p-1'>N°SÉRIE:</td>
+          <td class='p-show p-1'><%=@sensor.serial_number %></td>
+        </tr>
+        <tr>
+          <td class='p-type p-1'>PROGRAMA:</td>
+          <td class='p-show p-1'><%=@sensor.owner.upcase %></td>
+        </tr>
+        <tr>
+          <td class='p-type p-1'>N°REGISTRO:</td>
+          <td class='p-show p-1'><%=@sensor.register_number %></td>
+        </tr>
+        <tr>
+          <td class='p-type p-1'>MODELO:</td>
+          <td class='p-show p-1'><%=@sensor.model.upcase %></td>
+        </tr>
+        <tr>
+          <td class='p-type p-1'>FABRICANTE:</td>
+          <td class='p-show p-1'><%=@sensor.manufacturer.upcase %></td>
+        </tr>
+        <tr>
+          <td class='p-type p-1'>LOCAL:</td>
+          <td class='p-show p-1'><%=@sensor.place.place.upcase %></td>
+        </tr>
+        <tr>
+          <td class='p-type p-1'>SITUAÇÃO:</td>
+          <td class='p-show p-1'><%=@sensor.situation.status.upcase %></td>
+        </tr>
+        <tr>
+          <td class='p-type p-1'>AQUISIÇÃO:</td>
+          <% if @sensor.acquisition_date %>
+            <td class='p-show p-1'><%=@sensor.acquisition_date.strftime('%d/%m/%Y') %></td>
+          <% else %>
+            <td class='p-show p-1'>--</td>
           <% end %>
-        <% end %>
-      </p>
-      <p class='p-show p-1'>
-        <% if @sensor.datasheet %>
-          <%= link_to @sensor.datasheet, class: "btn text-primary p-0" do %>
-            <i class="far fa-file-pdf"></i>
+        </tr>
+        <tr>
+          <td class='p-type p-1'>MANUTENÇÃO:</td>
+          <% if @sensor.maintenance_date %>
+            <td class='p-show p-1'><%=@sensor.maintenance_date.strftime('%d/%m/%Y') %></td>
+          <% else %>
+            <td class='p-show p-1'>--</td>
           <% end %>
-        <% end %>
-      </p>
-      <% if @sensor.files.attached? %>
-        <div class="d-flex">
-          <% @sensor.files.each_with_index do |file, idx| %>
-            <%= link_to file.service_url, download: "arquivo#{idx + 1}" do %>
-              <i class="fas fa-file-image pt-0 pl-1 pr-1 pb-2 p-show"></i>
+        </tr>
+        <tr>
+          <td class='p-type p-1'>CALIBRAÇÃO:</td>
+          <% if @sensor.calibration_date %>
+            <td class='p-show p-1'><%=@sensor.calibration_date.strftime('%d/%m/%Y') %></td>
+          <% else %>
+            <td class='p-show p-1'>--</td>
+          <% end %>
+        </tr>
+        <tr>
+          <td class='p-type p-1'>MANUAL:</td>
+          <td class='p-show p-1'>
+            <% if @sensor.manual %>
+              <%= link_to @sensor.manual, class: "btn text-primary p-0", target: :_blank do %>
+                <i class="far fa-file-pdf"></i>
+              <% end %>
             <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td class='p-type p-1'>DATASHEET:</td>
+          <td class='p-show p-1'>
+            <% if @sensor.datasheet %>
+              <%= link_to @sensor.datasheet, class: "btn text-primary p-0", target: :_blank do %>
+                <i class="far fa-file-pdf"></i>
+              <% end %>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td class='p-type p-1'>ARQUIVOS:</td>
+          <% if @sensor.files.attached? %>
+            <div class="d-flex">
+              <% @sensor.files.each_with_index do |file, idx| %>
+                <%= link_to file.service_url, download: "arquivo#{idx + 1}" do %>
+                  <i class="fas fa-file-image pt-0 pl-1 pr-1 pb-2 p-show"></i>
+                <% end %>
+              <% end %>
+            </div>
+          <% else %>
+            <td class='p-show p-1'>NÃO HÁ ARQUIVOS INSERIDOS</td>
           <% end %>
-        </div>
-      <% else %>
-        <p class='p-show p-1'>NÃO HÁ ARQUIVOS INSERIDOS</p>
-      <% end %>
-      <p class='p-show p-1'><%=@sensor.observation %></p>
+        </tr>
+        <tr>
+          <td class='p-type p-1'>OBSERVAÇÃO:</td>
+          <td class='p-show p-1'><%=@sensor.observation %></td>
+        </tr>
+      </table>
     </div>
   </div>
 </div>
@@ -90,4 +121,57 @@
 <div class="text-center m-4 d-flex justify-content-center">
   <%= link_to "Nova Busca", sensors_path, class: "btn btn-outline-primary align-middle h-75 ml-2 button" %>
   <%= link_to "Editar", edit_sensor_path(@sensor), class: "btn btn-outline-danger align-middle h-75 ml-2 button" %>
+  <p class="btn btn-outline-success align-middle h-75 ml-2 button" id="show-hist"> MOSTRAR HISTÓRICO DO SENSOR </p>
+</div>
+<div class="text-center m-4 justify-content-center">
+  <table class="rwd-table inactive-tab" id="table1">
+    <tr>
+      <th>USUÁRIO</th>
+      <th>DATA</th>
+      <th>ITEM</th>
+      <th>SUBITEM</th>
+      <th>N° DE SÉRIE</th>
+      <th>PROGRAMA</th>
+      <th>N° REGISTRO</th>
+      <th>MODELO</th>
+      <th>FABRICANTE</th>
+      <th>LOCAL</th>
+      <th>SITUAÇÃO</th>
+      <th>AQUISIÇÃO</th>
+      <th>MANUTENÇÃO</th>
+      <th>CALIBRAÇÃO</th>
+      <th>OBSERVACÕES</th>
+    </tr>
+    <% @historic_sensors.each do |sensor| %>
+      <tr>
+        <td data-th="USUÁRIO"><%=sensor.user.username.capitalize%></td>
+        <td data-th="DATA"><%=sensor.updated_at.strftime("%d/%m/%Y %H:%M")%></td>
+        <td data-th="ITEM"><%=sensor.item_type.item.item %></td>
+        <td data-th="SUBITEM"><%=sensor.item_type.item_type %></td>
+        <td data-th="NS"><%=sensor.serial_number %></td>
+        <td data-th="PROGRAMA"><%=sensor.owner %></td>
+        <td data-th="N° REGISTRO"><%=sensor.register_number %></td>
+        <td data-th="MODELO"><%=sensor.model %></td>
+        <td data-th="FABRICANTE"><%=sensor.manufacturer %></td>
+        <td data-th="LOCAL"><%=sensor.place.place %></td>
+        <td data-th="SITUAÇÃO"><%=sensor.situation.status %></td>
+        <% if sensor.acquisition_date %>
+          <td data-th="AQUISIÇÃO"><%=sensor.acquisition_date.strftime('%d/%m/%Y') %></td>
+        <% else %>
+          <td data-th="AQUISIÇÃO"><%=sensor.acquisition_date %></td>
+        <% end %>
+        <% if sensor.maintenance_date %>
+          <td data-th="MANUTENÇÃO"><%=sensor.maintenance_date.strftime('%d/%m/%Y') %></td>
+        <% else %>
+          <td data-th="MANUTENÇÃO"><%=sensor.maintenance_date %></td>
+        <% end %>
+        <% if sensor.calibration_date %>
+          <td data-th="CALIBRAÇÃO"><%=sensor.calibration_date.strftime('%d/%m/%Y') %></td>
+        <% else %>
+          <td data-th="CALIBRAÇÃO"><%=sensor.calibration_date %></td>
+        <% end %>
+        <td data-th="OBSERVAÇÕES"><%=sensor.observation %></td>
+      </tr>
+    <% end %>
+  </table>
 </div>

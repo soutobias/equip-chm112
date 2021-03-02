@@ -107,6 +107,10 @@ class SensorsController < ApplicationController
     @sensor = Sensor.new(sensor_params)
     authorize @sensor
     if @sensor.save
+      @historic_sensor = HistoricSensor.new(sensor_params)
+      @historic_sensor.sensor = @sensor
+      @historic_sensor.user = current_user
+      @historic_sensor.save
       redirect_to sensor_path(@sensor)
     else
       render :new
@@ -114,6 +118,7 @@ class SensorsController < ApplicationController
   end
 
   def show
+    @historic_sensors = HistoricSensor.where("sensor_id = #{@sensor.id}").order(updated_at: :desc)
   end
 
   def edit
@@ -125,6 +130,10 @@ class SensorsController < ApplicationController
 
   def update
     @sensor.update(sensor_params)
+    @historic_sensor = HistoricSensor.new(sensor_params)
+    @historic_sensor.sensor = @sensor
+    @historic_sensor.user = current_user
+    @historic_sensor.save
     redirect_to sensor_path(@sensor)
   end
 

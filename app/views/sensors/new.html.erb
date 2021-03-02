@@ -23,6 +23,7 @@
       <%= f.input :calibration_date, label: 'DATA DE CALIBRAÇÃO:', as: :string, required: true, input_html: {class: "datepicker"} %>
       <%= f.input :manual, label: 'MANUAL:' %>
       <%= f.input :datasheet, label: 'DATASHEET:' %>
+      <%= f.input :observation, label: 'OBSERVAÇÕES:' %>
       <%= f.input :files, as: :file, input_html: { multiple: true } %>
       <%= f.button :submit, "INSERIR EQUIPAMENTO", class: "btn btn-outline-danger m-2"%>
       <%= link_to "Nova Busca", sensors_path, class: "btn btn-outline-success m-2" %>

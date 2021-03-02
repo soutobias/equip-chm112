@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_01_211654) do
+ActiveRecord::Schema.define(version: 2021_03_02_182510) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,27 @@ ActiveRecord::Schema.define(version: 2021_03_01_211654) do
   create_table "historic_sensors", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "serial_number"
+    t.string "owner"
+    t.string "manufacturer"
+    t.string "model"
+    t.string "manual"
+    t.string "datasheet"
+    t.date "acquisition_date"
+    t.date "maintenance_date"
+    t.date "calibration_date"
+    t.text "observation"
+    t.integer "register_number"
+    t.bigint "sensor_id"
+    t.bigint "item_type_id"
+    t.bigint "place_id"
+    t.bigint "situation_id"
+    t.bigint "user_id"
+    t.index ["item_type_id"], name: "index_historic_sensors_on_item_type_id"
+    t.index ["place_id"], name: "index_historic_sensors_on_place_id"
+    t.index ["sensor_id"], name: "index_historic_sensors_on_sensor_id"
+    t.index ["situation_id"], name: "index_historic_sensors_on_situation_id"
+    t.index ["user_id"], name: "index_historic_sensors_on_user_id"
   end
 
   create_table "item_types", force: :cascade do |t|

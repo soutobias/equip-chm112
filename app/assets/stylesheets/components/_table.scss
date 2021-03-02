@@ -161,6 +161,10 @@ $breakpoint-alpha: 480px; // adjust to your needs
   }
 }
 
+.inactive-tab {
+  display: none !important;
+}
+
 @media (max-width: 960px) {
   .rwd-table {
     font-size: 12px;
@@ -206,3 +210,5 @@ $breakpoint-alpha: 480px; // adjust to your needs
     display: none;
   }
 }
+
+

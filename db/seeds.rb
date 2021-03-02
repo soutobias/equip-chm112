@@ -8,6 +8,7 @@
 
 require "open-uri"
 
+HistoricSensor.destroy_all
 User.destroy_all
 Sensor.destroy_all
 ItemType.destroy_all
@@ -15,13 +16,18 @@ Item.destroy_all
 Situation.destroy_all
 Place.destroy_all
 
-u = User.new(
-  email: "1@gmail.com",
-  username: "meteorochm",
-  password: 'marinha1',
-)
 
-u.save!
+users = ['tobias', 'lellis', 'natalia', 'michelle', 'felippe', 'marlon', 'castro', 'chaves', 'henrique', 'felix', 'dias']
+
+
+users.each_with_index do |user, idx|
+  u = User.new(
+    email: "#{idx}@gmail.com",
+    username: user,
+    password: 'marinha',
+  )
+  u.save!
+end
 
 tables = CSV.parse(File.read("db/items.csv"), headers: true, :col_sep => "\t")
 
@@ -65,7 +71,7 @@ tables.each do |row|
 end
 
 
-tables = CSV.parse(File.read("db/sensors.csv"), headers: true, :col_sep => "\t")
+tables = CSV.parse(File.read("db/sensors.csv"), headers: true, :col_sep => ",")
 
 tables.each do |row|
   u = Sensor.new(
@@ -85,12 +91,31 @@ tables.each do |row|
     calibration_date: row['calibration_date'],
     observation: row['observation']
   )
-
+  p row['id'].to_i
   if row['foto']
-    p row['id'].to_i
     file = URI.open(row['foto'])
     u.photo.attach(io: file, filename: "1.jpg", content_type: 'image/jpg')
   end
   u.save!
+
+  hs = HistoricSensor.new(
+    sensor_id: row['id'].to_i,
+    item_type_id: row['item_type_id'].to_i,
+    serial_number: row['serial_number'],
+    owner: row['owner'],
+    register_number: row['register_number'],
+    model: row['model'],
+    manufacturer: row['manufacturer'],
+    place_id: row['place_id'].to_i,
+    situation_id: row['situation_id'].to_i,
+    manual: row['manual'],
+    datasheet: row['datasheet'],
+    acquisition_date: row['acquisition_date'],
+    maintenance_date: row['maintenance_date'],
+    calibration_date: row['calibration_date'],
+    observation: row['observation']
+  )
+  hs.user = User.first
+  hs.save!
 end
 
