@@ -1,5 +1,4 @@
-class ItemType < ActiveRecord::Base
-  establish_connection :external
+class ItemType < ApplicationRecord
   has_many :sensors
   belongs_to :item
 end

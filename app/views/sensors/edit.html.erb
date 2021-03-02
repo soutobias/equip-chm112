@@ -4,7 +4,7 @@
   </div>
 </div>
 <div class="m-5">
-  <h1 class="font-weight-bold text-center p-3 h1"><%= @sensor.item.item.upcase %> - <%= @sensor.item_type.item_type %></h1>
+  <h1 class="font-weight-bold text-center p-3 h1"><%= @sensor.item_type.item.item.upcase %> - <%= @sensor.item_type.item_type %></h1>
   <%= simple_form_for @sensor, html: { class: "results row justify-content-around"} do |f| %>
     <div class='col-12 col-md-4 mb-2'>
       <%= f.input :photo, label: "ALTERAR/INSERIR IMAGEM:", as: :file %>
@@ -15,18 +15,19 @@
       <% end %>
     </div>
     <div class='col-12 col-md-7 mt-5 pt-1'>
-      <%= f.input :item, collection: @items, label_method: :item, value_method: :id, label: "ITEM", include_blank: false, selected: @sensor.item.id %>
-      <%= f.input :item_type, collection: @item_types, label_method: :item_type, value_method: :id, label: "SUBITEM", include_blank: false, selected: @sensor.item_type.id %>
+      <%= f.input :item_type_id, collection: @item_types, label_method: :item_type, value_method: :id, label: "SUBITEM", include_blank: false, selected: @sensor.item_type.id %>
       <%= f.input :serial_number, label: 'N° DE SÉRIE:' %>
       <%= f.input :owner, label: 'PROGRAMA:' %>
       <%= f.input :register_number, label: 'N° DE REGISTRO:' %>
       <%= f.input :model, label: 'MODELO:' %>
       <%= f.input :manufacturer, label: 'FABRICANTE:' %>
-      <%= f.input :place, collection: @places, label_method: :place, value_method: :id, label: "LOCAL", include_blank: false, selected: @sensor.place.id %>
-      <%= f.input :situation, collection: @situations, label_method: :status, value_method: :id, label: "SITUAÇÃO", include_blank: false, selected: @sensor.situation.id %>
+      <%= f.input :place_id, collection: @places, label_method: :place, value_method: :id, label: "LOCAL", include_blank: false, selected: @sensor.place.id %>
+      <%= f.input :situation_id, collection: @situations, label_method: :status, value_method: :id, label: "SITUAÇÃO", include_blank: false, selected: @sensor.situation.id %>
       <%= f.input :acquisition_date, label: 'DATA DE AQUISIÇÃO:', as: :string, required: true, input_html: {class: "datepicker"} %>
       <%= f.input :maintenance_date, label: 'DATA DE MANUTENÇÃO:', as: :string, required: true, input_html: {class: "datepicker"} %>
       <%= f.input :calibration_date, label: 'DATA DE CALIBRAÇÃO:', as: :string, required: true, input_html: {class: "datepicker"} %>
+      <%= f.input :manual, label: 'MANUAL:' %>
+      <%= f.input :datasheet, label: 'DATASHEET:' %>
       <%= f.input :files, label: "ALTERAR/INSERIR ARQUIVO:", as: :file, input_html: { multiple: true } %>
       <%= f.button :submit, "Atualizar Equipamento", class: "btn btn-outline-danger m-2"%>
       <%= link_to "Voltar", sensor_path(@sensor), class: "btn btn-outline-primary m-2"%>

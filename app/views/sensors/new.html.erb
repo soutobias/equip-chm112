@@ -10,18 +10,19 @@
       <%= f.input :photo, label: "ALTERAR/INSERIR IMAGEM:", as: :file %>
     </div>
     <div class='col-12'>
-      <%= f.input :item, collection: @items, label_method: :item, value_method: :id, label: "ITEM", include_blank: '' %>
-      <%= f.input :item_type, collection: @item_types, label_method: :item_type, value_method: :id, label: "SUBITEM", include_blank: '' %>
+      <%= f.input :item_type_id, collection: @item_types, label_method: :item_type, value_method: :id, label: "SUBITEM", include_blank: '' %>
       <%= f.input :serial_number, label: 'N° DE SÉRIE:' %>
       <%= f.input :owner, label: 'PROGRAMA:' %>
       <%= f.input :register_number, label: 'N° DE REGISTRO:' %>
       <%= f.input :model, label: 'MODELO:' %>
       <%= f.input :manufacturer, label: 'FABRICANTE:' %>
-      <%= f.input :place, collection: @places, label_method: :place, value_method: :id, label: "LOCAL", include_blank: '' %>
-      <%= f.input :situation, collection: @situations, label_method: :status, value_method: :id, label: "SITUAÇÃO", include_blank: '' %>
+      <%= f.input :place_id, collection: @places, label_method: :place, value_method: :id, label: "LOCAL", include_blank: '' %>
+      <%= f.input :situation_id, collection: @situations, label_method: :status, value_method: :id, label: "SITUAÇÃO", include_blank: '' %>
       <%= f.input :acquisition_date, label: 'DATA DE AQUISIÇÃO:', as: :string, required: true, input_html: {class: "datepicker"} %>
       <%= f.input :maintenance_date, label: 'DATA DE MANUTENÇÃO:', as: :string, required: true, input_html: {class: "datepicker"} %>
       <%= f.input :calibration_date, label: 'DATA DE CALIBRAÇÃO:', as: :string, required: true, input_html: {class: "datepicker"} %>
+      <%= f.input :manual, label: 'MANUAL:' %>
+      <%= f.input :datasheet, label: 'DATASHEET:' %>
       <%= f.input :files, as: :file, input_html: { multiple: true } %>
       <%= f.button :submit, "INSERIR EQUIPAMENTO", class: "btn btn-outline-danger m-2"%>
       <%= link_to "Nova Busca", sensors_path, class: "btn btn-outline-success m-2" %>

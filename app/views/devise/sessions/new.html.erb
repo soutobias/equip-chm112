@@ -3,10 +3,10 @@
 
   <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="form-inputs pt-2">
-      <%= f.input :email, label: "E-mail", class: 'pt-4',
+      <%= f.input :username, label: "Usuário", class: 'pt-4',
                   required: false,
                   autofocus: true,
-                  input_html: { autocomplete: "email" } %>
+                  input_html: { autocomplete: "username" } %>
       <%= f.input :password, label: "Senha", class: 'pt-4',
                   required: false,
                   input_html: { autocomplete: "current-password" } %>

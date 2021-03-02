@@ -1,5 +1,4 @@
-class HistoricSensor < ActiveRecord::Base
-  establish_connection :external
+class HistoricSensor < ApplicationRecord
   belongs_to :sensor
   validates :sensor, presence: true
   belongs_to :place

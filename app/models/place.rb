@@ -1,4 +1,3 @@
-class Place < ActiveRecord::Base
-  establish_connection :external
+class Place < ApplicationRecord
   has_many :sensors
 end

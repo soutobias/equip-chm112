@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_06_000851) do
+ActiveRecord::Schema.define(version: 2021_03_01_211654) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,26 +42,49 @@ ActiveRecord::Schema.define(version: 2021_02_06_000851) do
   end
 
   create_table "item_types", force: :cascade do |t|
+    t.bigint "item_id", null: false
+    t.string "item_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["item_id"], name: "index_item_types_on_item_id"
   end
 
   create_table "items", force: :cascade do |t|
+    t.string "item"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "places", force: :cascade do |t|
+    t.string "place"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "sensors", force: :cascade do |t|
+    t.bigint "item_type_id", null: false
+    t.string "serial_number"
+    t.string "owner"
+    t.integer "register_number"
+    t.string "model"
+    t.string "manufacturer"
+    t.bigint "place_id", null: false
+    t.bigint "situation_id", null: false
+    t.string "manual"
+    t.string "datasheet"
+    t.date "acquisition_date"
+    t.date "maintenance_date"
+    t.date "calibration_date"
+    t.text "observation"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["item_type_id"], name: "index_sensors_on_item_type_id"
+    t.index ["place_id"], name: "index_sensors_on_place_id"
+    t.index ["situation_id"], name: "index_sensors_on_situation_id"
   end
 
   create_table "situations", force: :cascade do |t|
+    t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -74,9 +97,14 @@ ActiveRecord::Schema.define(version: 2021_02_06_000851) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "username"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "item_types", "items"
+  add_foreign_key "sensors", "item_types"
+  add_foreign_key "sensors", "places"
+  add_foreign_key "sensors", "situations"
 end

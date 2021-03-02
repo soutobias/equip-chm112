@@ -1,9 +1,6 @@
-class Sensor < ActiveRecord::Base
-  establish_connection :external
+class Sensor < ApplicationRecord
   belongs_to :place
   validates :place, presence: true
-
-  belongs_to :item
   belongs_to :item_type
   validates :item_type, presence: true
 

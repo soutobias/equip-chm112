@@ -124,7 +124,7 @@
       </div>
     <% end %>
   </div>
-  <div class="results container">
+  <div class="results">
     <h1 class='font-weight-bold text-center p-3 h1'>LISTA DE SENSORES</h1>
     <table class="rwd-table">
       <tr>
@@ -141,13 +141,15 @@
         <th><%= link_to "AQUISIÇÃO", :sort => "acquisition_date"%> </th>
         <th><%= link_to "MANUTENÇÃO", :sort => "maintenance_date"%> </th>
         <th><%= link_to "CALIBRAÇÃO", :sort => "calibration_date"%> </th>
+        <th>MANUAL</th>
+        <th>DATASHEET</th>
         <th>AÇÕES</th>
       </tr>
       <% if @x == 1 %>
         <% @sensors.each do |sensor| %>
           <tr>
             <td data-th="ID"><%=sensor.id%></td>
-            <td data-th="ITEM"><%=sensor.item.item %></td>
+            <td data-th="ITEM"><%=sensor.item_type.item.item %></td>
             <td data-th="SUBITEM"><%=sensor.item_type.item_type %></td>
             <td data-th="NS"><%=sensor.serial_number %></td>
             <td data-th="PROGRAMA"><%=sensor.owner %></td>
@@ -171,6 +173,20 @@
             <% else %>
               <td data-th="CALIBRAÇÃO"><%=sensor.calibration_date %></td>
             <% end %>
+            <td data-th="MANUAL">
+              <% if sensor.manual %>
+                <%= link_to sensor.manual, class: "btn text-primary p-0" do %>
+                  <i class="far fa-file-pdf"></i>
+                <% end %>
+              <% end %>
+            </td>
+            <td data-th="DATASHEET">
+              <% if sensor.datasheet %>
+                <%= link_to sensor.datasheet, class: "btn text-primary p-0" do %>
+                  <i class="far fa-file-pdf"></i>
+                <% end %>
+              <% end %>
+            </td>
             <td class="d-flex" data-th="AÇÕES">
               <%= link_to edit_sensor_path(sensor), class: "btn text-primary p-0" do %>
                 <i class="far fa-edit fontawe"></i>

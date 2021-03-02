@@ -23,9 +23,6 @@ class SensorsController < ApplicationController
       if @place_id != ""
         query += "place_id = #{@place_id.to_i} AND "
       end
-      if @item_id != ""
-        query += "item_id = '#{@item_id}' AND "
-      end
       if @item_type_id != ""
         query += "item_type_id = '#{@item_type_id}' AND "
       end
@@ -50,15 +47,38 @@ class SensorsController < ApplicationController
       if @maintenance_date != ""
         query += "maintenance_date >= '#{@maintenance_date}' AND "
       end
+      if @item_id != ""
+        join = "INNER JOIN item_types ON item_types.id = sensors.item_type_id
+            INNER JOIN items ON item_types.item_id = items.id AND item_types.item_id = '#{@item_id}'"
+      end
       if query != ""
         query = query[0..-5]
         @x = 1
+        if join
+          if params[:sort].present?
+            @sensors = policy_scope(Sensor).includes(:situation,
+              :place, :item_type).where(query).joins(join).order(params[:sort])
+          else
+            @sensors = policy_scope(Sensor).includes(:situation, :place,
+              :item_type).where(query).joins(join).order(:id)
+          end
+        else
+          if params[:sort].present?
+            @sensors = policy_scope(Sensor).includes(:situation,
+              :place, :item_type).where(query).order(params[:sort])
+          else
+            @sensors = policy_scope(Sensor).includes(:situation, :place,
+              :item_type).where(query).order(:id)
+          end
+        end
+      elsif join
+        @x = 1
         if params[:sort].present?
           @sensors = policy_scope(Sensor).includes(:situation,
-            :place, :item, :item_type).where(query).order(params[:sort])
+            :place, :item_type).joins(join).order(params[:sort])
         else
-          @sensors = policy_scope(Sensor).includes(:situation, :place, :item,
-            :item_type).where(query).order(:id)
+          @sensors = policy_scope(Sensor).includes(:situation, :place,
+            :item_type).joins(join).order(:id)
         end
       else
         @sensors = policy_scope(Sensor)
@@ -131,7 +151,6 @@ class SensorsController < ApplicationController
   end
 
   def sensor_params
-
     params.require(:sensor).permit(
       :item_id, :item_type_id, :serial_number, :owner, :register_number, :model,
       :manufacturer, :place_id, :situation_id, :acquisition_date, :maintenance_date,

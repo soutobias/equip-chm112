@@ -1,4 +1,3 @@
-class Situation < ActiveRecord::Base
-  establish_connection :external
+class Situation < ApplicationRecord
   has_many :sensors
 end

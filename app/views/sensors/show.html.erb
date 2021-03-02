@@ -4,7 +4,7 @@
   </div>
 </div>
 <div class="m-5">
-  <h1 class="font-weight-bold text-center p-3 h1"><%= @sensor.item.item.upcase %> - <%= @sensor.item_type.item_type %></h1>
+  <h1 class="font-weight-bold text-center p-3 h1"><%= @sensor.item_type.item.item.upcase %> - <%= @sensor.item_type.item_type %></h1>
   <div class="results row justify-content-around">
     <div class='col-12 col-md-4 mb-2'>
       <% if @sensor.photo.attached? %>
@@ -26,12 +26,14 @@
       <p class='p-type p-1'>AQUISIÇÃO:</p>
       <p class='p-type p-1'>MANUTENÇÃO:</p>
       <p class='p-type p-1'>CALIBRAÇÃO:</p>
+      <p class='p-type p-1'>MANUAL:</p>
+      <p class='p-type p-1'>DATASHEET:</p>
       <p class='p-type p-1'>ARQUIVOS:</p>
       <p class='p-type p-1'>OBSERVAÇÃO:</p>
 
     </div>
     <div class='col-8 col-md-5'>
-      <p class='p-show p-1'><%=@sensor.item.item.upcase %></p>
+      <p class='p-show p-1'><%=@sensor.item_type.item.item.upcase %></p>
       <p class='p-show p-1'><%=@sensor.item_type.item_type.upcase %></p>
       <p class='p-show p-1'><%=@sensor.serial_number %></p>
       <p class='p-show p-1'><%=@sensor.owner.upcase %></p>
@@ -55,6 +57,20 @@
       <% else %>
         <p class='p-show p-1'>--</p>
       <% end %>
+      <p class='p-show p-1'>
+        <% if @sensor.manual %>
+          <%= link_to @sensor.manual, class: "btn text-primary p-0" do %>
+            <i class="far fa-file-pdf"></i>
+          <% end %>
+        <% end %>
+      </p>
+      <p class='p-show p-1'>
+        <% if @sensor.datasheet %>
+          <%= link_to @sensor.datasheet, class: "btn text-primary p-0" do %>
+            <i class="far fa-file-pdf"></i>
+          <% end %>
+        <% end %>
+      </p>
       <% if @sensor.files.attached? %>
         <div class="d-flex">
           <% @sensor.files.each_with_index do |file, idx| %>
