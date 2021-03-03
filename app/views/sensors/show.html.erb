@@ -17,11 +17,19 @@
       <table class="w-100">
         <tr>
           <td class='p-type p-1'>ITEM:</td>
-          <td class='p-show p-1'><%=@sensor.item_type.item.item.upcase %></td>
+          <% if @sensor.item_type.item.item %>
+            <td class='p-show p-1'><%=@sensor.item_type.item.item.upcase %></td>
+          <% else %>
+            <td class='p-show p-1'><%=@sensor.item_type.item.item %></td>
+          <% end %>
         </tr>
         <tr>
           <td class='p-type p-1'>SUBITEM:</td>
-          <td class='p-show p-1'><%=@sensor.item_type.item_type.upcase %></td>
+          <% if @sensor.item_type.item_id %>
+            <td class='p-show p-1'><%=@sensor.item_type.item_type.upcase %></td>
+          <% else %>
+            <td class='p-show p-1'><%=@sensor.item_type.item_type %></td>
+          <% end %>
         </tr>
         <tr>
           <td class='p-type p-1'>N°SÉRIE:</td>
@@ -37,11 +45,20 @@
         </tr>
         <tr>
           <td class='p-type p-1'>MODELO:</td>
-          <td class='p-show p-1'><%=@sensor.model.downcase %></td>
+          <% if @sensor.model %>
+            <td class='p-show p-1'><%=@sensor.model.downcase %></td>
+          <% else %>
+            <td class='p-show p-1'><%=@sensor.model %></td>
+          <% end %>
         </tr>
         <tr>
           <td class='p-type p-1'>FABRICANTE:</td>
-          <td class='p-show p-1'><%=@sensor.manufacturer.downcase %></td>
+          <% if @sensor.manufacturer %>
+            <td class='p-show p-1'><%=@sensor.manufacturer.downcase %></td>
+          <% else %>
+            <td class='p-show p-1'><%=@sensor.manufacturer %></td>
+          <% end %>
+
         </tr>
         <tr>
           <td class='p-type p-1'>LOCAL:</td>
