@@ -1,0 +1,76 @@
+<div class="banner1">
+  <div class="container text-center justify-content-center align-middle">
+    <h1 class="font-weight-bold">ADMIN</h1>
+  </div>
+</div>
+<div class="m-5">
+  <div class="results row justify-content-around">
+    <div class='col-12 col-md-5 border m-2'>
+      <h2 class='text-center'>LOCAIS</h2>
+      <% @places.each do |place| %>
+        <div class="d-flex">
+          <%= simple_form_for place, html: { class: "results d-flex"} do |f| %>
+            <%= f.input :place, label: false %>
+            <%= f.button :submit, "ALTERAR LOCAL", class: "btn btn-outline-success m-1"%>
+          <% end %>
+          <%= link_to "Apagar", place_path(place), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-outline-danger m-1" %>
+        </div>
+      <% end %>
+      <%= simple_form_for @place, html: { class: "results d-flex"} do |f| %>
+        <%= f.input :place, label: false %>
+        <%= f.button :submit, "NOVO LOCAL", class: "btn btn-outline-danger m-1"%>
+      <% end %>
+    </div>
+    <div class='col-12 col-md-5 border m-2'>
+      <h2 class='text-center'>STATUS</h2>
+      <% @situations.each do |situation| %>
+        <div class="d-flex">
+          <%= simple_form_for situation, html: { class: "results d-flex"} do |f| %>
+            <%= f.input :status, label: false %>
+            <%= f.button :submit, "ALTERAR STATUS", class: "btn btn-outline-success m-1"%>
+          <% end %>
+          <%= link_to "Apagar", situation_path(situation), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-outline-danger m-1" %>
+        </div>
+      <% end %>
+      <%= simple_form_for @situation, html: { class: "results d-flex"} do |f| %>
+        <%= f.input :status, label: false %>
+        <%= f.button :submit, "NOVO STATUS", class: "btn btn-outline-danger m-1"%>
+      <% end %>
+    </div>
+    <div class='col-12 col-md-5 border m-2'>
+      <h2 class='text-center'>ITEM</h2>
+      <% @items.each do |item| %>
+        <div class="d-flex">
+          <%= simple_form_for item, html: { class: "results d-flex"} do |f| %>
+            <%= f.input :item, label: false %>
+            <%= f.button :submit, "ALTERAR ITEM", class: "btn btn-outline-success m-1"%>
+          <% end %>
+          <%= link_to "Apagar", item_path(item), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-outline-danger m-1" %>
+        </div>
+      <% end %>
+      <%= simple_form_for @item, html: { class: "results d-flex"} do |f| %>
+        <%= f.input :item, label: false %>
+        <%= f.button :submit, "NOVO ITEM", class: "btn btn-outline-danger m-1"%>
+      <% end %>
+    </div>
+    <div class='col-12 col-md-5 border m-2'>
+      <h2 class='text-center'>SUBITEM</h2>
+      <% @item_types.each do |item_type| %>
+        <div class="d-flex">
+          <%= simple_form_for item_type, html: { class: "results d-flex"} do |f| %>
+            <%= f.input :item_type, label: false %>
+            <%= f.input :item_id, collection: @items, label_method: :item, value_method: :id, label: false, include_blank: false, selected: item_type.item.id %>
+            <%= f.button :submit, "ALTERAR SUBITEM", class: "btn btn-outline-success m-1"%>
+          <% end %>
+          <%= link_to "Apagar", item_type_path(item_type), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-outline-danger m-1" %>
+        </div>
+      <% end %>
+      <%= simple_form_for @item_type, html: { class: "results d-flex"} do |f| %>
+        <%= f.input :item_type, label: false %>
+        <%= f.input :item_id, collection: @items, label_method: :item, value_method: :id, label: false, include_blank: true %>
+        <%= f.button :submit, "NOVO ITEM", class: "btn btn-outline-danger m-1"%>
+      <% end %>
+    </div>
+  </div>
+</div>
+

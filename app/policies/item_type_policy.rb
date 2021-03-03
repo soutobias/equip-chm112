@@ -1,4 +1,4 @@
-class SensorPolicy < ApplicationPolicy
+class ItemTypePolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       scope.all
@@ -27,7 +27,4 @@ class SensorPolicy < ApplicationPolicy
     return true
   end
 
-  def download?
-    return true
-  end
 end

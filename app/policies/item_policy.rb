@@ -1,4 +1,4 @@
-class SensorPolicy < ApplicationPolicy
+class ItemPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       scope.all
@@ -23,11 +23,9 @@ class SensorPolicy < ApplicationPolicy
   def update?
     return true
   end
+
   def destroy?
     return true
   end
 
-  def download?
-    return true
-  end
 end

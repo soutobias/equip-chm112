@@ -21,11 +21,17 @@ users = ['tobias', 'lellis', 'natalia', 'michelle', 'felippe', 'marlon', 'castro
 
 
 users.each_with_index do |user, idx|
+  if idx == 0
+    admin = true
+  else
+    admin = false
+  end
   u = User.new(
     email: "#{idx}@gmail.com",
     username: user,
     password: 'marinha',
   )
+  u.admin = admin
   u.save!
 end
 
@@ -74,6 +80,11 @@ end
 tables = CSV.parse(File.read("db/sensors.csv"), headers: true, :col_sep => ",")
 
 tables.each do |row|
+  if row['observation']
+    r = row['observation'].downcase
+  else
+    r = row['observation']
+  end
   u = Sensor.new(
     id: row['id'].to_i,
     item_type_id: row['item_type_id'].to_i,
@@ -89,7 +100,7 @@ tables.each do |row|
     acquisition_date: row['acquisition_date'],
     maintenance_date: row['maintenance_date'],
     calibration_date: row['calibration_date'],
-    observation: row['observation'].downcase
+    observation: r
   )
   p row['id'].to_i
   if row['foto']
@@ -113,7 +124,8 @@ tables.each do |row|
     acquisition_date: row['acquisition_date'],
     maintenance_date: row['maintenance_date'],
     calibration_date: row['calibration_date'],
-    observation: row['observation'].downcase
+    if row['observation']
+      observation: r
   )
   hs.user = User.first
   hs.save!
