@@ -104,9 +104,27 @@ class SensorsController < ApplicationController
 
   def create
     @sensor = Sensor.new(sensor_params)
+    if @sensor.model
+      @sensor.model.downcase!
+    end
+    if @sensor.manufacturer
+      @sensor.manufacturer.downcase!
+    end
+    if @sensor.observation
+      @sensor.observation.downcase!
+    end
     authorize @sensor
     if @sensor.save
       @historic_sensor = HistoricSensor.new(hist_sensor_params)
+      if @historic_sensor.model
+        @historic_sensor.model.downcase!
+      end
+      if @historic_sensor.manufacturer
+        @historic_sensor.manufacturer.downcase!
+      end
+      if @historic_sensor.observation
+        @historic_sensor.observation.downcase!
+      end
       @historic_sensor.sensor = @sensor
       @historic_sensor.user = current_user
       @historic_sensor.save
@@ -159,17 +177,17 @@ class SensorsController < ApplicationController
 
   def sensor_params
     params.require(:sensor).permit(
-      :item_id, :item_type_id, :serial_number, :owner, :register_number, :model.downcase,
-      :manufacturer.downcase, :place_id, :situation_id, :acquisition_date, :maintenance_date,
-      :calibration_date, :observation.downcase, :photo, files: []
+      :item_id, :item_type_id, :serial_number, :owner, :register_number, :model,
+      :manufacturer, :place_id, :situation_id, :acquisition_date, :maintenance_date,
+      :calibration_date, :observation, :photo, files: []
       )
   end
 
   def hist_sensor_params
     params.require(:sensor).permit(
-      :item_id, :item_type_id, :serial_number, :owner, :register_number, :model.downcase,
-      :manufacturer.downcase, :place_id, :situation_id, :acquisition_date, :maintenance_date,
-      :calibration_date, :observation.downcase
+      :item_id, :item_type_id, :serial_number, :owner, :register_number, :model,
+      :manufacturer, :place_id, :situation_id, :acquisition_date, :maintenance_date,
+      :calibration_date, :observation
       )
   end
 
