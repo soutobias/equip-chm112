@@ -59,9 +59,14 @@ end
 tables = CSV.parse(File.read("db/places.csv"), headers: true, :col_sep => "\t")
 
 tables.each do |row|
+  if row['place']
+    p = row['place'].downcase
+  else
+    p = row['place']
+  end
   u = Place.new(
     id: row['id'].to_i,
-    place: row['place'].downcase,
+    place: p,
   )
   u.save!
 end
@@ -81,9 +86,19 @@ tables = CSV.parse(File.read("db/sensors.csv"), headers: true, :col_sep => ",")
 
 tables.each do |row|
   if row['observation']
-    r = row['observation'].downcase
+    o = row['observation'].downcase
   else
-    r = row['observation']
+    o = row['observation']
+  end
+  if row['model']
+    m = row['model'].downcase
+  else
+    m = row['model']
+  end
+  if row['manufacturer']
+    ma = row['manufacturer'].downcase
+  else
+    ma = row['manufacturer']
   end
   u = Sensor.new(
     id: row['id'].to_i,
@@ -91,8 +106,8 @@ tables.each do |row|
     serial_number: row['serial_number'],
     owner: row['owner'],
     register_number: row['register_number'],
-    model: row['model'].downcase,
-    manufacturer: row['manufacturer'].downcase,
+    model: m,
+    manufacturer: ma,
     place_id: row['place_id'].to_i,
     situation_id: row['situation_id'].to_i,
     manual: row['manual'],
@@ -100,7 +115,7 @@ tables.each do |row|
     acquisition_date: row['acquisition_date'],
     maintenance_date: row['maintenance_date'],
     calibration_date: row['calibration_date'],
-    observation: r
+    observation: o
   )
   p row['id'].to_i
   if row['foto']
@@ -115,8 +130,8 @@ tables.each do |row|
     serial_number: row['serial_number'],
     owner: row['owner'],
     register_number: row['register_number'],
-    model: row['model'].downcase,
-    manufacturer: row['manufacturer'].downcase,
+    model: m,
+    manufacturer: ma,
     place_id: row['place_id'].to_i,
     situation_id: row['situation_id'].to_i,
     manual: row['manual'],
@@ -124,8 +139,7 @@ tables.each do |row|
     acquisition_date: row['acquisition_date'],
     maintenance_date: row['maintenance_date'],
     calibration_date: row['calibration_date'],
-    if row['observation']
-      observation: r
+    observation: o
   )
   hs.user = User.first
   hs.save!
