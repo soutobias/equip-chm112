@@ -154,8 +154,8 @@
             <td data-th="NS"><%=sensor.serial_number %></td>
             <td data-th="PROGRAMA"><%=sensor.owner %></td>
             <td data-th="N° REGISTRO"><%=sensor.register_number %></td>
-            <td data-th="MODELO"><%=sensor.model %></td>
-            <td data-th="FABRICANTE"><%=sensor.manufacturer %></td>
+            <td data-th="MODELO"><%=sensor.model.downcase %></td>
+            <td data-th="FABRICANTE"><%=sensor.manufacturer.downcase %></td>
             <td data-th="LOCAL"><%=sensor.place.place %></td>
             <td data-th="SITUAÇÃO"><%=sensor.situation.status %></td>
             <% if sensor.acquisition_date %>

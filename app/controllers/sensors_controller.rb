@@ -1,5 +1,4 @@
 class SensorsController < ApplicationController
-
   before_action :set_sensor, only: [:show, :edit, :update, :destroy, :download]
 
   def index
@@ -14,8 +13,8 @@ class SensorsController < ApplicationController
       @maintenance_date = params[:maintenance_date]
       @owner = params[:owner]
       @register_number = params[:register_number]
-      @manufacturer = params[:manufacturer]
-      @model = params[:model]
+      @manufacturer = params[:manufacturer].downcase
+      @model = params[:model].downcase
       query = ""
       if @situation_id != ""
         query += "situation_id = #{@situation_id.to_i} AND "
@@ -30,10 +29,10 @@ class SensorsController < ApplicationController
         query += "owner = '#{@owner}' AND "
       end
       if !["0",""].include? @manufacturer
-        query += "manufacturer = '#{@manufacturer}' AND "
+        query += "manufacturer LIKE '%#{@manufacturer}%' AND "
       end
       if !["0",""].include? @model
-        query += "model = '#{@model}' AND "
+        query += "model LIKE '%#{@model}%' AND "
       end
       if !["0",""].include? @register_number
         query += "register_number = '#{@register_number}' AND "
@@ -107,7 +106,7 @@ class SensorsController < ApplicationController
     @sensor = Sensor.new(sensor_params)
     authorize @sensor
     if @sensor.save
-      @historic_sensor = HistoricSensor.new(sensor_params)
+      @historic_sensor = HistoricSensor.new(hist_sensor_params)
       @historic_sensor.sensor = @sensor
       @historic_sensor.user = current_user
       @historic_sensor.save
@@ -130,7 +129,7 @@ class SensorsController < ApplicationController
 
   def update
     @sensor.update(sensor_params)
-    @historic_sensor = HistoricSensor.new(sensor_params)
+    @historic_sensor = HistoricSensor.new(hist_sensor_params)
     @historic_sensor.sensor = @sensor
     @historic_sensor.user = current_user
     @historic_sensor.save
@@ -144,7 +143,6 @@ class SensorsController < ApplicationController
 
   def download
     file_id = params[:file_id].to_i
-    raise
     file = Cloudinary::Downloader.download(@sensor.files[file_id].key, flags: :attachment)
     pdf = File.new("Arquivo#{file_id}", "wb")
     pdf.write(file)
@@ -161,21 +159,18 @@ class SensorsController < ApplicationController
 
   def sensor_params
     params.require(:sensor).permit(
-      :item_id, :item_type_id, :serial_number, :owner, :register_number, :model,
-      :manufacturer, :place_id, :situation_id, :acquisition_date, :maintenance_date,
-      :calibration_date, :observation, :photo, files: []
+      :item_id, :item_type_id, :serial_number, :owner, :register_number, :model.downcase,
+      :manufacturer.downcase, :place_id, :situation_id, :acquisition_date, :maintenance_date,
+      :calibration_date, :observation.downcase, :photo, files: []
       )
   end
+
+  def hist_sensor_params
+    params.require(:sensor).permit(
+      :item_id, :item_type_id, :serial_number, :owner, :register_number, :model.downcase,
+      :manufacturer.downcase, :place_id, :situation_id, :acquisition_date, :maintenance_date,
+      :calibration_date, :observation.downcase
+      )
+  end
+
 end
-
-
-
-# Index(['id', 'item'], dtype='object')
-# Index(['id', 'item_id', 'item_type'], dtype='object')
-# Index(['id', 'place'], dtype='object')
-# Index(['id', 'item_id', 'item_type_id', 'serial_number', 'owner',
-#        'register_number', 'model', 'manufacturer', 'place_id', 'situation_id',
-#        'acquisition_date', 'maintenance_date', 'calibration_date',
-#        'observation'],
-
-            # <%= link_to "Arquivo#{idx + 1}", sensor_download_path(@sensor, file_id: "#{idx}", id: "#{@sensor.id}"), method: :post %>

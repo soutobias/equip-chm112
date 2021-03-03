@@ -45,7 +45,7 @@ tables.each do |row|
   u = ItemType.new(
     id: row['id'].to_i,
     item_id: row['item_id'].to_i,
-    item_type: row['item_type'],
+    item_type: row['item_type'].downcase,
   )
   u.save!
 end
@@ -55,7 +55,7 @@ tables = CSV.parse(File.read("db/places.csv"), headers: true, :col_sep => "\t")
 tables.each do |row|
   u = Place.new(
     id: row['id'].to_i,
-    place: row['place'],
+    place: row['place'].downcase,
   )
   u.save!
 end
@@ -65,7 +65,7 @@ tables = CSV.parse(File.read("db/situations.csv"), headers: true, :col_sep => "\
 tables.each do |row|
   u = Situation.new(
     id: row['id'].to_i,
-    status: row['status'],
+    status: row['status'].downcase,
   )
   u.save!
 end
@@ -80,8 +80,8 @@ tables.each do |row|
     serial_number: row['serial_number'],
     owner: row['owner'],
     register_number: row['register_number'],
-    model: row['model'],
-    manufacturer: row['manufacturer'],
+    model: row['model'].downcase,
+    manufacturer: row['manufacturer'].downcase,
     place_id: row['place_id'].to_i,
     situation_id: row['situation_id'].to_i,
     manual: row['manual'],
@@ -89,7 +89,7 @@ tables.each do |row|
     acquisition_date: row['acquisition_date'],
     maintenance_date: row['maintenance_date'],
     calibration_date: row['calibration_date'],
-    observation: row['observation']
+    observation: row['observation'].downcase
   )
   p row['id'].to_i
   if row['foto']
@@ -104,8 +104,8 @@ tables.each do |row|
     serial_number: row['serial_number'],
     owner: row['owner'],
     register_number: row['register_number'],
-    model: row['model'],
-    manufacturer: row['manufacturer'],
+    model: row['model'].downcase,
+    manufacturer: row['manufacturer'].downcase,
     place_id: row['place_id'].to_i,
     situation_id: row['situation_id'].to_i,
     manual: row['manual'],
@@ -113,7 +113,7 @@ tables.each do |row|
     acquisition_date: row['acquisition_date'],
     maintenance_date: row['maintenance_date'],
     calibration_date: row['calibration_date'],
-    observation: row['observation']
+    observation: row['observation'].downcase
   )
   hs.user = User.first
   hs.save!
