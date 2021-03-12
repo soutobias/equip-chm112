@@ -30,4 +30,14 @@ class SensorPolicy < ApplicationPolicy
   def download?
     return true
   end
+
+  def delete_image_attachment?
+    return true
+  end
+
+  def add_image_attachment?
+    return true
+  end
+
+
 end

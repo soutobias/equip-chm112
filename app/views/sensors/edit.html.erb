@@ -29,7 +29,17 @@
       <%= f.input :manual, label: 'MANUAL:' %>
       <%= f.input :datasheet, label: 'DATASHEET:' %>
       <%= f.input :observation, label: 'OBSERVAÇÕES:' %>
-      <%= f.input :files, label: "ALTERAR/INSERIR ARQUIVO:", as: :file, input_html: { multiple: true } %>
+      <div class="d-flex">
+        <p class='pt-1 pr-2'><strong>REMOVER ARQUIVOS? </strong></p>
+        <% @sensor.files.each_with_index do |file, idx| %>
+          <%= link_to delete_image_attachment_sensor_url(@sensor, file.signed_id),
+                          method: :delete,
+                          data: { confirm: 'Are you sure?' }, title: file.filename  do %>
+            <i class="fas fa-trash-alt pt-0 pl-1 pr-1 pb-2 p-show"></i>
+          <% end %>
+          <p><%= file.filename.to_s[0..15]%></p>
+        <% end %>
+      </div>
       <%= f.button :submit, "Atualizar Equipamento", class: "btn btn-outline-danger m-2"%>
       <%= link_to "Voltar", sensor_path(@sensor), class: "btn btn-outline-primary m-2"%>
       <%= link_to "Nova Busca", sensors_path, class: "btn btn-outline-success m-2" %>

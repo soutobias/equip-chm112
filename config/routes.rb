@@ -9,5 +9,10 @@ Rails.application.routes.draw do
   resources :sensors do
     post "download", to: "sensors#download"
     resources :historic_sensors, only: [:index, :show]
+    member do
+      delete :delete_image_attachment
+      patch :add_image_attachment
+    end
   end
 end
+

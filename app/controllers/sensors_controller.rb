@@ -1,5 +1,6 @@
 class SensorsController < ApplicationController
-  before_action :set_sensor, only: [:show, :edit, :update, :destroy, :download]
+  before_action :set_sensor, only: [:show, :edit, :update, :destroy, :download,
+    :delete_image_attachment, :add_image_attachment ]
 
   def index
     if params[:commit].present?
@@ -146,11 +147,14 @@ class SensorsController < ApplicationController
   end
 
   def update
+    @sensor1 = @sensor.dup
     @sensor.update(sensor_params)
-    @historic_sensor = HistoricSensor.new(hist_sensor_params)
-    @historic_sensor.sensor = @sensor
-    @historic_sensor.user = current_user
-    @historic_sensor.save
+    if @sensor1.place_id != @sensor.place_id || @sensor1.situation_id != @sensor.situation_id || @sensor1.calibration_date != @sensor.calibration_date || @sensor1.acquisition_date != @sensor.acquisition_date || @sensor1.maintenance_date != @sensor.maintenance_date || @sensor1.observation != @sensor.observation
+      @historic_sensor = HistoricSensor.new(hist_sensor_params)
+      @historic_sensor.sensor = @sensor
+      @historic_sensor.user = current_user
+      @historic_sensor.save
+    end
     redirect_to sensor_path(@sensor)
   end
 
@@ -159,14 +163,42 @@ class SensorsController < ApplicationController
     redirect_to root_path
   end
 
-  def download
-    file_id = params[:file_id].to_i
-    file = Cloudinary::Downloader.download(@sensor.files[file_id].key, flags: :attachment)
-    pdf = File.new("Arquivo#{file_id}", "wb")
-    pdf.write(file)
-    pdf.close
+  def delete_image_attachment
+    @image = ActiveStorage::Blob.find_signed(params[:format])
+    @sensor.files.each do |file|
+      if @image.id == file.id
+        file.purge
+      end
+    end
+    set_sensor
+    @situations = Situation.all
+    @places = Place.all
+    @items = Item.all
+    @item_types = ItemType.all
+    redirect_to edit_sensor_path(@sensor)
+  end
+
+  def add_image_attachment
+    @file_params = file_params
+    @file_params[:files].each do |file|
+      @sensor.files.attach(file)
+    end
+    @situations = Situation.all
+    @places = Place.all
+    @items = Item.all
+    @item_types = ItemType.all
     redirect_to sensor_path(@sensor)
   end
+
+
+  # def download
+  #   file_id = params[:file_id].to_i
+  #   file = Cloudinary::Downloader.download(@sensor.files[file_id].key, flags: :attachment)
+  #   pdf = File.new("Arquivo#{file_id}", "wb")
+  #   pdf.write(file)
+  #   pdf.close
+  #   redirect_to sensor_path(@sensor)
+  # end
 
   private
 
@@ -179,9 +211,16 @@ class SensorsController < ApplicationController
     params.require(:sensor).permit(
       :item_id, :item_type_id, :serial_number, :owner, :register_number, :model,
       :manufacturer, :place_id, :situation_id, :acquisition_date, :maintenance_date,
-      :calibration_date, :observation, :photo, files: []
+      :calibration_date, :observation, :photo
       )
   end
+
+  def file_params
+    params.require(:sensor).permit(
+      files: []
+      )
+  end
+
 
   def hist_sensor_params
     params.require(:sensor).permit(

@@ -115,15 +115,18 @@
         <tr>
           <td class='p-type p-1'>ARQUIVOS:</td>
           <% if @sensor.files.attached? %>
-            <div class="d-flex">
-              <% @sensor.files.each_with_index do |file, idx| %>
-                <%= link_to file.service_url, download: "arquivo#{idx + 1}" do %>
-                  <i class="fas fa-file-image pt-0 pl-1 pr-1 pb-2 p-show"></i>
+            <td class='p-show p-1'>
+              <div class="d-flex">
+                <% @sensor.files.each_with_index do |file, idx| %>
+                  <%= link_to file.service_url, download: "arquivo#{idx + 1}", title: file.filename do %>
+                    <i class="fas fa-file-image pt-0 pl-1 pr-1 pb-2 p-show"></i>
+                  <% end %>
                 <% end %>
-              <% end %>
-            </div>
+              </div>
+            </td>
           <% else %>
             <td class='p-show p-1'>NÃO HÁ ARQUIVOS INSERIDOS</td>
+            </td>
           <% end %>
         </tr>
         <tr>
@@ -131,11 +134,17 @@
           <td class='p-show p-1'><%=@sensor.observation %></td>
         </tr>
       </table>
+      <div>
+        <%= simple_form_for @sensor, :url => add_image_attachment_sensor_url(@sensor), html: { class: "mt-2"} do |f| %>
+          <%= f.input :files, label: "ADICIONAR ARQUIVO", as: :file, input_html: { multiple: true } %>
+          <%= f.button :submit, "ADD", class: "btn btn-outline-danger m-0"%>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
 
-<div class="text-center m-4 d-flex justify-content-center">
+<div class="text-center m-3 d-flex justify-content-center">
   <%= link_to "Nova Busca", sensors_path, class: "btn btn-outline-primary align-middle h-75 ml-2 button" %>
   <%= link_to "Editar", edit_sensor_path(@sensor), class: "btn btn-outline-danger align-middle h-75 ml-2 button" %>
   <p class="btn btn-outline-success align-middle h-75 ml-2 button" id="show-hist"> MOSTRAR HISTÓRICO DO SENSOR </p>

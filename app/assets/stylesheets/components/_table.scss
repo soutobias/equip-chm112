@@ -152,6 +152,16 @@ $breakpoint-alpha: 480px; // adjust to your needs
   }
 }
 
+.ruby-names-wrapper.collapsed .checkbox-wrapper {
+  display: none;
+}
+
+.ruby-names-wrapper .checkbox-wrapper {
+  display: block;
+}
+
+
+
 .rwd-table {
   th, td {
     margin: .5em 1em;
