@@ -114,6 +114,8 @@ class SensorsController < ApplicationController
     if @sensor.observation
       @sensor.observation.downcase!
     end
+    @id = Sensor.maximum(:id) + 1
+    @sensor.id = @id
     authorize @sensor
     if @sensor.save
       @historic_sensor = HistoricSensor.new(hist_sensor_params)
